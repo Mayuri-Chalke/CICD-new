@@ -1,5 +1,6 @@
 version: 0.0
 os: linux
+
 files:
   - source: index.html  # Correct source path (no leading slash)
     destination: /var/www/html/  # Target path on the server
@@ -12,6 +13,7 @@ hooks:
     - location: scripts/start_server  # Make sure this script exists and starts the server
       timeout: 300
       runas: root
+
   ApplicationStop:
     - location: scripts/stop_server  # Make sure this script exists to stop the server
       timeout: 300
