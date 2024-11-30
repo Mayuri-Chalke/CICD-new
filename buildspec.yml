@@ -1,34 +1,17 @@
-version: 0.2
-
-phases:
-  install:
-    commands:
-      # Update all packages and install dependencies
-      - echo "Updating packages and installing dependencies"
-      - sudo yum update -y
-      - sudo yum install -y gcc-c++ make
-      - sudo yum install -y nginx httpd
-
-  pre_build:
-    commands:
-      # Start the Apache HTTPD service
-      - echo "Starting Apache HTTPD service"
-      - sudo systemctl start httpd
-      - sudo systemctl enable httpd
-
-      # Start the Nginx service
-      - echo "Starting Nginx service"
-      - sudo systemctl start nginx
-      - sudo systemctl enable nginx
-
-  build:
-    commands:
-      # Verify Apache and Nginx status
-      - echo "Verifying services"
-      - sudo systemctl status httpd
-      - sudo systemctl status nginx
-
-  post_build:
-    commands:
-      # Confirm successful installation and configuration
-      - echo "Apache and Nginx are installed and running"
+version: 0.0
+os: linux
+files:
+  - source: /index.html
+    destination: /var/www/html/
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies
+      timeout: 300
+      runas: root
+    - location: scripts/start_server
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: scripts/stop_server
+      timeout: 300
+      runas: root
