@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: /index.html
+  - source: index.html  # No leading slash here
     destination: /var/www/html/
 hooks:
   BeforeInstall:
