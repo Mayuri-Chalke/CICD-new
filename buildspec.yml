@@ -2,17 +2,17 @@ version: 0.0
 os: linux
 files:
   - source: index.html  # Correct source path (no leading slash)
-    destination: /var/www/html/
+    destination: /var/www/html/  # Target path on the server
 
 hooks:
   BeforeInstall:
-    - location: scripts/install_dependencies  # Ensure this script exists
+    - location: scripts/install_dependencies  # Make sure this script exists
       timeout: 300
       runas: root
-    - location: scripts/start_server  # Ensure this script exists and can start your server (e.g., Apache or Nginx)
+    - location: scripts/start_server  # Make sure this script exists and starts the server
       timeout: 300
       runas: root
   ApplicationStop:
-    - location: scripts/stop_server  # Ensure this script exists and can stop the server
+    - location: scripts/stop_server  # Make sure this script exists to stop the server
       timeout: 300
       runas: root
